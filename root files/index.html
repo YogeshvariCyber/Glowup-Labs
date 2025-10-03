@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlowUp Labs - Your AI Wellness Bestie 💚</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 50%, #16a34a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .step-bg {
+            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .step-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 30% 70%, rgba(255,255,255,0.08) 0%, transparent 40%),
+                radial-gradient(circle at 70% 30%, rgba(255,255,255,0.08) 0%, transparent 40%);
+            pointer-events: none;
+        }
+        
+        .goals-bg {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 50%, #0e7490 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .goals-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 25% 75%, rgba(255,255,255,0.1) 0%, transparent 45%),
+                radial-gradient(circle at 75% 25%, rgba(255,255,255,0.1) 0%, transparent 45%);
+            pointer-events: none;
+        }
+        
+        .allergies-bg {
+            background: linear-gradient(135deg, #84cc16 0%, #65a30d 50%, #4d7c0f 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .allergies-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 40% 60%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 60% 40%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .results-bg {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .results-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 35% 65%, rgba(255,255,255,0.1) 0%, transparent 45%),
+                radial-gradient(circle at 65% 35%, rgba(255,255,255,0.1) 0%, transparent 45%);
+            pointer-events: none;
+        }
+        
+        .health-pattern {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        .health-pattern:nth-child(2) { top: 10%; left: 10%; animation-delay: -1s; }
+        .health-pattern:nth-child(3) { top: 20%; right: 15%; animation-delay: -2s; }
+        .health-pattern:nth-child(4) { bottom: 30%; left: 20%; animation-delay: -3s; }
+        .health-pattern:nth-child(5) { bottom: 20%; right: 10%; animation-delay: -4s; }
+        .health-pattern:nth-child(6) { top: 50%; left: 5%; animation-delay: -5s; }
+        .health-pattern:nth-child(7) { top: 60%; right: 5%; animation-delay: -6s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .logo-corner {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: #16a34a;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            font-size: 14px;
+            line-height: 1.3;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="min-h-screen gradient-bg flex items-center justify-center p-4">
+        <!-- Logo Corner -->
+        <div class="logo-corner">
+            <div>✨ GlowUp Labs</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: normal; margin-top: 2px;">
+                Web Designer & Developer: Yogeshvari Joshi
+            </div>
+        </div>
+        
+        <!-- Floating Health Elements -->
+        <div class="health-pattern">🥗</div>
+        <div class="health-pattern">🍎</div>
+        <div class="health-pattern">🥕</div>
+        <div class="health-pattern">🥬</div>
+        <div class="health-pattern">🫐</div>
+        <div class="health-pattern">🥑</div>
+        <div class="health-pattern">🍊</div>
+        
+        <div class="text-center text-white max-w-2xl fade-in relative z-10">
+            <div class="mb-8">
+                <div class="text-8xl mb-6 pulse-animation">✨</div>
+                <h1 class="text-6xl font-bold mb-4">GlowUp Labs</h1>
+                <p class="text-xl mb-8">Your AI Wellness Bestie That Actually Gets You ✨</p>
+            </div>
+            
+            <div class="bg-white/20 backdrop-blur-lg rounded-3xl p-8 mb-8">
+                <h2 class="text-2xl font-semibold mb-6">Ready to Glow Up? ✨</h2>
+                <input 
+                    type="text" 
+                    id="user-name" 
+                    placeholder="What should we call you?" 
+                    class="w-full p-4 rounded-2xl text-gray-800 text-lg border-none outline-none mb-6"
+                >
+                <button 
+                    onclick="startJourney()" 
+                    class="bg-white text-purple-600 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-purple-50 transition-all duration-300 card-hover"
+                >
+                    Let's Slay This Journey 🚀
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Selection -->
+    <div id="theme-screen" class="min-h-screen gradient-bg hidden p-4">
+        <!-- Logo Corner -->
+        <div class="logo-corner">
+            <div>✨ GlowUp Labs</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: normal; margin-top: 2px;">
+                Web Designer & Developer: Yogeshvari Joshi
+            </div>
+        </div>
+        
+        <!-- Floating Health Elements -->
+        <div class="health-pattern">🥒</div>
+        <div class="health-pattern">🍓</div>
+        <div class="health-pattern">🥦</div>
+        <div class="health-pattern">🍌</div>
+        <div class="health-pattern">🥝</div>
+        <div class="health-pattern">🍇</div>
+        
+        <div class="max-w-4xl mx-auto py-8 relative z-10">
+            <div class="text-center text-white mb-12 fade-in">
+                <div class="text-6xl mb-4">🎨</div>
+                <h2 class="text-4xl font-bold mb-4">Choose Your Style ✨</h2>
+                <p class="text-xl">Pick the theme that matches your personality!</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="theme-card bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl p-6 text-center card-hover cursor-pointer text-white" onclick="selectTheme('green')">
+                    <div class="text-4xl mb-2">🌿</div>
+                    <h3 class="font-bold">Plant Parent</h3>
+                    <p class="text-sm opacity-80">Earthy & Grounded</p>
+                </div>
+                
+                <div class="theme-card bg-gradient-to-br from-blue-500 to-cyan-500 rounded-3xl p-6 text-center card-hover cursor-pointer text-white" onclick="selectTheme('blue')">
+                    <div class="text-4xl mb-2">🌊</div>
+                    <h3 class="font-bold">Ocean Vibes</h3>
+                    <p class="text-sm opacity-80">Cool & Refreshing</p>
+                </div>
+                
+                <div class="theme-card bg-gradient-to-br from-orange-400 to-yellow-500 rounded-3xl p-6 text-center card-hover cursor-pointer text-white" onclick="selectTheme('orange')">
+                    <div class="text-4xl mb-2">🔥</div>
+                    <h3 class="font-bold">Main Character</h3>
+                    <p class="text-sm opacity-80">Bold & Confident</p>
+                </div>
+                
+                <div class="theme-card bg-gradient-to-br from-purple-500 to-pink-500 rounded-3xl p-6 text-center card-hover cursor-pointer text-white" onclick="selectTheme('purple')">
+                    <div class="text-4xl mb-2">💜</div>
+                    <h3 class="font-bold">Dreamy Aesthetic</h3>
+                    <p class="text-sm opacity-80">Soft & Mystical</p>
+                </div>
+            </div>
+            
+            <div class="flex justify-between items-center">
+                <button onclick="goBackToWelcome()" class="bg-white/20 text-white px-6 py-3 rounded-2xl font-bold text-lg hover:bg-white/30 transition-all duration-300 card-hover">
+                    ← Nah, Go Back
+                </button>
+                <button onclick="proceedToGoals()" class="bg-white text-purple-600 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-purple-50 transition-all duration-300 card-hover">
+                    Let's Set Some Goals Bestie 🎯
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Goals Selection Screen -->
+    <div id="goals-screen" class="min-h-screen goals-bg hidden p-4">
+        <!-- Logo Corner -->
+        <div class="logo-corner">
+            <div>✨ GlowUp Labs</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: normal; margin-top: 2px;">
+                Web Designer & Developer: Yogeshvari Joshi
+            </div>
+        </div>
+        
+        <!-- Floating Health Elements -->
+        <div class="health-pattern">🏃‍♀️</div>
+        <div class="health-pattern">💪</div>
+        <div class="health-pattern">🧘‍♀️</div>
+        <div class="health-pattern">🏋️‍♂️</div>
+        <div class="health-pattern">🚴‍♀️</div>
+        <div class="health-pattern">🤸‍♂️</div>
+        
+        <div class="max-w-6xl mx-auto py-8 relative z-10">
+            <div class="text-center text-white mb-12 fade-in">
+                <div class="text-6xl mb-4">🎯</div>
+                <h2 class="text-4xl font-bold mb-4">Hey <span id="user-name-display"></span>! 👋</h2>
+                <p class="text-xl">What's your main wellness goal?</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="goal-card bg-white/90 backdrop-blur-lg rounded-3xl p-6 text-center card-hover cursor-pointer" onclick="selectGoal('weight-loss')">
+                    <div class="text-6xl mb-4">⚖️</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Snatched Era</h3>
+                    <p class="text-gray-600">Lose weight safely and sustainably</p>
+                </div>
+                
+                <div class="goal-card bg-white/90 backdrop-blur-lg rounded-3xl p-6 text-center card-hover cursor-pointer" onclick="selectGoal('weight-gain')">
+                    <div class="text-6xl mb-4">💪</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Buff Bestie</h3>
+                    <p class="text-gray-600">Build healthy muscle mass & strength</p>
+                </div>
+                
+                <div class="goal-card bg-white/90 backdrop-blur-lg rounded-3xl p-6 text-center card-hover cursor-pointer" onclick="selectGoal('healthy-lifestyle')">
+                    <div class="text-6xl mb-4">🌟</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Main Character Energy</h3>
+                    <p class="text-gray-600">Maintain optimal health & wellness</p>
+                </div>
+                
+                <div class="goal-card bg-white/90 backdrop-blur-lg rounded-3xl p-6 text-center card-hover cursor-pointer" onclick="selectGoal('allergic-weight-loss')">
+                    <div class="text-6xl mb-4">🚫⚖️</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Safe Weight Loss</h3>
+                    <p class="text-gray-600">Lose weight while avoiding allergens</p>
+                </div>
+                
+                <div class="goal-card bg-white/90 backdrop-blur-lg rounded-3xl p-6 text-center card-hover cursor-pointer" onclick="selectGoal('allergic-weight-gain')">
+                    <div class="text-6xl mb-4">🚫💪</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Safe Muscle Gain</h3>
+                    <p class="text-gray-600">Build muscle without allergen risks</p>
+                </div>
+                
+                <div class="goal-card bg-white/90 backdrop-blur-lg rounded-3xl p-6 text-center card-hover cursor-pointer" onclick="selectGoal('custom')">
+                    <div class="text-6xl mb-4">🎯</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Custom Vibe</h3>
+                    <p class="text-gray-600">Tell us your specific needs</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Profile Screen -->
+    <div id="profile-screen" class="min-h-screen step-bg hidden p-4">
+        <!-- Logo Corner -->
+        <div class="logo-corner">
+            <div>✨ GlowUp Labs</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: normal; margin-top: 2px;">
+                Web Designer & Developer: Yogeshvari Joshi
+            </div>
+        </div>
+        
+        <!-- Floating Health Elements -->
+        <div class="health-pattern">📊</div>
+        <div class="health-pattern">📏</div>
+        <div class="health-pattern">⚖️</div>
+        <div class="health-pattern">📈</div>
+        <div class="health-pattern">🎂</div>
+        <div class="health-pattern">⏰</div>
+        
+        <div class="max-w-4xl mx-auto py-8 relative z-10">
+            <div class="text-center text-white mb-12 fade-in">
+                <div class="text-6xl mb-4">📝</div>
+                <h2 class="text-4xl font-bold mb-4">Spill the Tea About Yourself 📋</h2>
+                <p class="text-xl">Help us create your personalized wellness plan that hits different</p>
+            </div>
+            
+            <div class="bg-white/90 backdrop-blur-lg rounded-3xl p-8 mb-8">
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">What's your age range? ✨</label>
+                        <select id="user-age" class="w-full p-4 rounded-xl border border-gray-200">
+                            <option value="">Select your age range</option>
+                            <option value="13-17">13-17 years</option>
+                            <option value="18-25">18-25 years</option>
+                            <option value="26-35">26-35 years</option>
+                            <option value="36-45">36-45 years</option>
+                            <option value="46-55">46-55 years</option>
+                            <option value="56-65">56-65 years</option>
+                            <option value="65+">65+ years</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Gender (for nutrition calculations) 💫</label>
+                        <select id="user-gender" class="w-full p-4 rounded-xl border border-gray-200">
+                            <option value="">Select your gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Current weight ⚖️</label>
+                        <input type="number" id="current-weight" placeholder="e.g., 70 kg" class="w-full p-4 rounded-xl border border-gray-200" min="20" max="300">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">How tall are you? 📏</label>
+                        <input type="number" id="current-height" placeholder="e.g., 170 cm" class="w-full p-4 rounded-xl border border-gray-200" min="100" max="250">
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Dream weight goal? 🎯</label>
+                        <input type="number" id="target-weight" placeholder="e.g., 65 kg" class="w-full p-4 rounded-xl border border-gray-200" min="20" max="300">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Target timeline? ⏰</label>
+                        <select id="timeline-goal" class="w-full p-4 rounded-xl border border-gray-200">
+                            <option value="">Select your timeline</option>
+                            <option value="1-month">1 Month</option>
+                            <option value="3-months">3 Months</option>
+                            <option value="6-months">6 Months</option>
+                            <option value="1-year">1 Year</option>
+                            <option value="2-years">2 Years</option>
+                            <option value="no-rush">No specific timeline</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between items-center gap-4">
+                    <button 
+                        onclick="goBackToGoals()" 
+                        class="bg-gray-500 text-white px-6 py-4 rounded-2xl font-bold text-lg hover:bg-gray-600 transition-all duration-300 card-hover"
+                    >
+                        ← Wait, Go Back
+                    </button>
+                    <button 
+                        onclick="proceedToDietary()" 
+                        class="flex-1 bg-pink-500 text-white py-4 rounded-2xl font-bold text-lg hover:bg-pink-600 transition-all duration-300 card-hover"
+                    >
+                        Let's Talk Food Vibes Bestie 🍽️
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dietary Preferences Screen -->
+    <div id="dietary-screen" class="min-h-screen step-bg hidden p-4">
+        <!-- Logo Corner -->
+        <div class="logo-corner">
+            <div>✨ GlowUp Labs</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: normal; margin-top: 2px;">
+                Web Designer & Developer: Yogeshvari Joshi
+            </div>
+        </div>
+        
+        <!-- Floating Health Elements -->
+        <div class="health-pattern">🥗</div>
+        <div class="health-pattern">🍖</div>
+        <div class="health-pattern">🥚</div>
+        <div class="health-pattern">🌱</div>
+        <div class="health-pattern">🐟</div>
+        <div class="health-pattern">🥑</div>
+        
+        <div class="max-w-4xl mx-auto py-8 relative z-10">
+            <div class="text-center text-white mb-12 fade-in">
+                <div class="text-6xl mb-4">🍽️</div>
+                <h2 class="text-4xl font-bold mb-4">What's Your Food Vibe? 🍽️</h2>
+                <p class="text-xl">Tell us about your eating style bestie</p>
+            </div>
+            
+            <div class="bg-white/90 backdrop-blur-lg rounded-3xl p-8 mb-8">
+                <h3 class="text-xl font-bold text-gray-800 mb-6">Select your dietary preference:</h3>
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
+                    <label class="dietary-item flex items-center p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="radio" name="dietary" value="vegetarian" class="mr-3 w-5 h-5">
+                        <span class="text-lg">🥬 Vegetarian (No meat, fish, or poultry)</span>
+                    </label>
+                    <label class="dietary-item flex items-center p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="radio" name="dietary" value="non-vegetarian" class="mr-3 w-5 h-5">
+                        <span class="text-lg">🍖 Non-Vegetarian (All foods)</span>
+                    </label>
+                    <label class="dietary-item flex items-center p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="radio" name="dietary" value="eggetarian" class="mr-3 w-5 h-5">
+                        <span class="text-lg">🥚 Eggetarian (Vegetarian + Eggs)</span>
+                    </label>
+                    <label class="dietary-item flex items-center p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="radio" name="dietary" value="vegan" class="mr-3 w-5 h-5">
+                        <span class="text-lg">🌱 Vegan (No animal products)</span>
+                    </label>
+                    <label class="dietary-item flex items-center p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="radio" name="dietary" value="pescatarian" class="mr-3 w-5 h-5">
+                        <span class="text-lg">🐟 Pescatarian (Vegetarian + Fish)</span>
+                    </label>
+                    <label class="dietary-item flex items-center p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="radio" name="dietary" value="keto" class="mr-3 w-5 h-5">
+                        <span class="text-lg">🥑 Keto (Low carb, high fat)</span>
+                    </label>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2">Other dietary preferences or restrictions:</label>
+                    <textarea 
+                        id="custom-dietary" 
+                        placeholder="e.g., intermittent fasting, paleo, raw food, etc..."
+                        class="w-full p-4 rounded-xl border border-gray-200 resize-none"
+                        rows="3"
+                    ></textarea>
+                </div>
+                
+                <div class="flex justify-between items-center gap-4">
+                    <button 
+                        onclick="goBackToProfile()" 
+                        class="bg-gray-500 text-white px-6 py-4 rounded-2xl font-bold text-lg hover:bg-gray-600 transition-all duration-300 card-hover"
+                    >
+                        ← Back
+                    </button>
+                    <button 
+                        onclick="proceedToAllergies()" 
+                        class="flex-1 bg-pink-500 text-white py-4 rounded-2xl font-bold text-lg hover:bg-pink-600 transition-all duration-300 card-hover"
+                    >
+                        Continue to Allergies 🚫
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Allergies Screen -->
+    <div id="allergies-screen" class="min-h-screen allergies-bg hidden p-4">
+        <!-- Logo Corner -->
+        <div class="logo-corner">
+            <div>✨ GlowUp Labs</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: normal; margin-top: 2px;">
+                Web Designer & Developer: Yogeshvari Joshi
+            </div>
+        </div>
+        
+        <!-- Floating Health Elements -->
+        <div class="health-pattern">🥜</div>
+        <div class="health-pattern">🥛</div>
+        <div class="health-pattern">🌾</div>
+        <div class="health-pattern">🦐</div>
+        <div class="health-pattern">🐟</div>
+        <div class="health-pattern">🫘</div>
+        
+        <div class="max-w-4xl mx-auto py-8 relative z-10">
+            <!-- Initial Allergy Question -->
+            <div id="allergy-question" class="text-center text-white mb-12 fade-in">
+                <div class="text-6xl mb-4">🤔</div>
+                <h2 class="text-4xl font-bold mb-4">Real Talk About Allergies</h2>
+                <p class="text-xl mb-8">Do you have any food allergies or intolerances bestie?</p>
+                
+                <div class="flex justify-center gap-6 mb-6">
+                    <button onclick="showAllergyOptions()" class="bg-red-500 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-red-600 transition-all duration-300 card-hover">
+                        Yes, I have allergies 🚫
+                    </button>
+                    <button onclick="skipAllergies()" class="bg-green-500 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-green-600 transition-all duration-300 card-hover">
+                        No, I don't have any ✅
+                    </button>
+                </div>
+                
+                <div class="flex justify-center">
+                    <button 
+                        onclick="goBackToDietary()" 
+                        class="bg-white/20 text-white px-6 py-3 rounded-2xl font-bold text-lg hover:bg-white/30 transition-all duration-300 card-hover"
+                    >
+                        ← Back to Dietary Preferences
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Detailed Allergy Selection (Hidden Initially) -->
+            <div id="allergy-details" class="hidden">
+                <div class="text-center text-white mb-12 fade-in">
+                    <div class="text-6xl mb-4">🔍</div>
+                    <h2 class="text-4xl font-bold mb-4">Let's Check Your Allergies</h2>
+                    <p class="text-xl">Select any foods you're allergic to or avoid</p>
+                </div>
+                
+                <div class="bg-white/90 backdrop-blur-lg rounded-3xl p-8 mb-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Common Food Allergies:</h3>
+                    <div class="grid md:grid-cols-3 gap-3 mb-6">
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="nuts" class="mr-3 w-5 h-5">
+                            <span>🥜 Tree Nuts</span>
+                        </label>
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="peanuts" class="mr-3 w-5 h-5">
+                            <span>🥜 Peanuts</span>
+                        </label>
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="dairy" class="mr-3 w-5 h-5">
+                            <span>🥛 Dairy/Milk</span>
+                        </label>
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="gluten" class="mr-3 w-5 h-5">
+                            <span>🌾 Gluten/Wheat</span>
+                        </label>
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="eggs" class="mr-3 w-5 h-5">
+                            <span>🥚 Eggs</span>
+                        </label>
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="shellfish" class="mr-3 w-5 h-5">
+                            <span>🦐 Shellfish</span>
+                        </label>
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="fish" class="mr-3 w-5 h-5">
+                            <span>🐟 Fish</span>
+                        </label>
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="soy" class="mr-3 w-5 h-5">
+                            <span>🫘 Soy</span>
+                        </label>
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="sesame" class="mr-3 w-5 h-5">
+                            <span>🌰 Sesame</span>
+                        </label>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Food Intolerances & Sensitivities:</h3>
+                    <div class="grid md:grid-cols-3 gap-3 mb-6">
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="lactose" class="mr-3 w-5 h-5">
+                            <span>🥛 Lactose Intolerant</span>
+                        </label>
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="citrus" class="mr-3 w-5 h-5">
+                            <span>🍊 Citrus Fruits</span>
+                        </label>
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="tomatoes" class="mr-3 w-5 h-5">
+                            <span>🍅 Tomatoes</span>
+                        </label>
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="spicy" class="mr-3 w-5 h-5">
+                            <span>🌶️ Spicy Foods</span>
+                        </label>
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="onions" class="mr-3 w-5 h-5">
+                            <span>🧅 Onions</span>
+                        </label>
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="garlic" class="mr-3 w-5 h-5">
+                            <span>🧄 Garlic</span>
+                        </label>
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="caffeine" class="mr-3 w-5 h-5">
+                            <span>☕ Caffeine</span>
+                        </label>
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="artificial-sweeteners" class="mr-3 w-5 h-5">
+                            <span>🧪 Artificial Sweeteners</span>
+                        </label>
+                        <label class="allergy-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                            <input type="checkbox" value="preservatives" class="mr-3 w-5 h-5">
+                            <span>🥫 Preservatives</span>
+                        </label>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-semibold mb-2">Other allergies or dietary restrictions:</label>
+                        <textarea 
+                            id="custom-allergies" 
+                            placeholder="e.g., tomatoes, spicy food, artificial sweeteners..."
+                            class="w-full p-4 rounded-xl border border-gray-200 resize-none"
+                            rows="3"
+                        ></textarea>
+                    </div>
+                    
+                    <div class="flex justify-between items-center gap-4">
+                        <button 
+                            onclick="goBackToAllergyQuestion()" 
+                            class="bg-gray-500 text-white px-6 py-4 rounded-2xl font-bold text-lg hover:bg-gray-600 transition-all duration-300 card-hover"
+                        >
+                            ← Back
+                        </button>
+                        <button 
+                            onclick="proceedToHealthConditions()" 
+                            class="flex-1 bg-green-500 text-white py-4 rounded-2xl font-bold text-lg hover:bg-green-600 transition-all duration-300 card-hover"
+                        >
+                            Continue to Health Information 🏥
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Health Conditions Screen -->
+    <div id="health-screen" class="min-h-screen step-bg hidden p-4">
+        <!-- Logo Corner -->
+        <div class="logo-corner">
+            <div>✨ GlowUp Labs</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: normal; margin-top: 2px;">
+                Web Designer & Developer: Yogeshvari Joshi
+            </div>
+        </div>
+        
+        <!-- Floating Health Elements -->
+        <div class="health-pattern">🩺</div>
+        <div class="health-pattern">💓</div>
+        <div class="health-pattern">❤️</div>
+        <div class="health-pattern">🦋</div>
+        <div class="health-pattern">💊</div>
+        <div class="health-pattern">🩸</div>
+        
+        <div class="max-w-4xl mx-auto py-8 relative z-10">
+            <div class="text-center text-white mb-12 fade-in">
+                <div class="text-6xl mb-4">🏥</div>
+                <h2 class="text-4xl font-bold mb-4">Health Check Bestie</h2>
+                <p class="text-xl">Help us understand your health better (Optional but it's giving main character energy)</p>
+            </div>
+            
+            <div class="bg-white/90 backdrop-blur-lg rounded-3xl p-8 mb-8">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Major Health Conditions:</h3>
+                <div class="grid md:grid-cols-2 gap-3 mb-6">
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="diabetes" class="mr-3 w-5 h-5">
+                        <span>🩺 Diabetes</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="hypertension" class="mr-3 w-5 h-5">
+                        <span>💓 High Blood Pressure</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="hypotension" class="mr-3 w-5 h-5">
+                        <span>📉 Low Blood Pressure</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="heart-disease" class="mr-3 w-5 h-5">
+                        <span>❤️ Heart Disease</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="thyroid" class="mr-3 w-5 h-5">
+                        <span>🦋 Thyroid Issues</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="pcos" class="mr-3 w-5 h-5">
+                        <span>🌸 PCOS</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="ibs" class="mr-3 w-5 h-5">
+                        <span>🤢 IBS/Digestive Issues</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="arthritis" class="mr-3 w-5 h-5">
+                        <span>🦴 Arthritis/Joint Pain</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="anemia" class="mr-3 w-5 h-5">
+                        <span>🩸 Anemia</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="kidney-issues" class="mr-3 w-5 h-5">
+                        <span>🫘 Kidney Issues</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="liver-issues" class="mr-3 w-5 h-5">
+                        <span>🫀 Liver Issues</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="asthma" class="mr-3 w-5 h-5">
+                        <span>🫁 Asthma</span>
+                    </label>
+                </div>
+                
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Common Health Issues:</h3>
+                <div class="grid md:grid-cols-2 gap-3 mb-6">
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="migraine" class="mr-3 w-5 h-5">
+                        <span>🤕 Migraine/Headaches</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="sinus" class="mr-3 w-5 h-5">
+                        <span>👃 Sinus Issues</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="acid-reflux" class="mr-3 w-5 h-5">
+                        <span>🔥 Acid Reflux/GERD</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="insomnia" class="mr-3 w-5 h-5">
+                        <span>😴 Sleep Issues/Insomnia</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="anxiety" class="mr-3 w-5 h-5">
+                        <span>😰 Anxiety/Stress</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="depression" class="mr-3 w-5 h-5">
+                        <span>😔 Depression</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="back-pain" class="mr-3 w-5 h-5">
+                        <span>🔙 Back Pain</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="neck-pain" class="mr-3 w-5 h-5">
+                        <span>🦒 Neck Pain</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="constipation" class="mr-3 w-5 h-5">
+                        <span>🚽 Constipation</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="fatigue" class="mr-3 w-5 h-5">
+                        <span>😴 Chronic Fatigue</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="skin-issues" class="mr-3 w-5 h-5">
+                        <span>🧴 Skin Issues/Acne</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="hair-loss" class="mr-3 w-5 h-5">
+                        <span>💇 Hair Loss/Thinning</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="vitamin-deficiency" class="mr-3 w-5 h-5">
+                        <span>💊 Vitamin Deficiency</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="allergic-rhinitis" class="mr-3 w-5 h-5">
+                        <span>🤧 Allergic Rhinitis</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="eye-strain" class="mr-3 w-5 h-5">
+                        <span>👁️ Eye Strain/Dry Eyes</span>
+                    </label>
+                    <label class="health-item flex items-center p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" value="irregular-periods" class="mr-3 w-5 h-5">
+                        <span>🌸 Irregular Periods</span>
+                    </label>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2">Current medications or supplements:</label>
+                    <textarea 
+                        id="medications" 
+                        placeholder="e.g., metformin, vitamin D, blood pressure medication..."
+                        class="w-full p-4 rounded-xl border border-gray-200 resize-none"
+                        rows="3"
+                    ></textarea>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2">Other health concerns or body issues:</label>
+                    <textarea 
+                        id="health-concerns" 
+                        placeholder="e.g., frequent headaches, low energy, sleep issues, stress, anxiety..."
+                        class="w-full p-4 rounded-xl border border-gray-200 resize-none"
+                        rows="3"
+                    ></textarea>
+                </div>
+                
+                <div class="flex justify-between items-center gap-4">
+                    <button 
+                        onclick="goBackToAllergies()" 
+                        class="bg-gray-500 text-white px-6 py-4 rounded-2xl font-bold text-lg hover:bg-gray-600 transition-all duration-300 card-hover"
+                    >
+                        ← Back
+                    </button>
+                    <button 
+                        onclick="proceedToResults()" 
+                        class="flex-1 bg-purple-500 text-white py-4 rounded-2xl font-bold text-lg hover:bg-purple-600 transition-all duration-300 card-hover"
+                    >
+                        Create My Personalized Plan 🎯
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen" class="min-h-screen results-bg hidden p-4">
+        <!-- Logo Corner -->
+        <div class="logo-corner">
+            <div>✨ GlowUp Labs</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: normal; margin-top: 2px;">
+                Web Designer & Developer: Yogeshvari Joshi
+            </div>
+        </div>
+        
+        <!-- Floating Health Elements -->
+        <div class="health-pattern">📋</div>
+        <div class="health-pattern">📊</div>
+        <div class="health-pattern">🎯</div>
+        <div class="health-pattern">💡</div>
+        <div class="health-pattern">✅</div>
+        <div class="health-pattern">🏆</div>
+        
+        <div class="max-w-6xl mx-auto py-8 relative z-10">
+            <div class="text-center text-white mb-12 fade-in">
+                <div class="text-6xl mb-4">📋</div>
+                <h2 class="text-4xl font-bold mb-4">Your Personalized Glow-Up Plan ✨</h2>
+                <p class="text-xl">Tailored specifically for <span id="final-name-display"></span> - this is about to be iconic</p>
+            </div>
+            
+            <!-- BMI Analysis -->
+            <div class="bg-white/90 backdrop-blur-lg rounded-3xl p-8 mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                    📊 Your Health Analysis
+                </h3>
+                <div id="bmi-analysis-content">
+                    <!-- BMI analysis will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Diet Plan -->
+                <div class="bg-white/90 backdrop-blur-lg rounded-3xl p-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        🍽️ Your Personalized Diet Plan
+                    </h3>
+                    <div id="diet-plan-content">
+                        <!-- Diet content will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Health Tips & Timeline -->
+                <div class="bg-white/90 backdrop-blur-lg rounded-3xl p-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        💡 Health Tips & Timeline
+                    </h3>
+                    <div id="health-tips-content">
+                        <!-- Health tips will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button 
+                    onclick="startOver()" 
+                    class="bg-white text-purple-600 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-purple-50 transition-all duration-300 card-hover mr-4"
+                >
+                    Start Over 🔄
+                </button>
+                <button 
+                    onclick="downloadPlan()" 
+                    class="bg-purple-600 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-purple-700 transition-all duration-300 card-hover"
+                >
+                    Download Plan 📥
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let userData = {
+            name: '',
+            goal: '',
+            theme: 'purple',
+            age: '',
+            gender: '',
+            currentWeight: 0,
+            currentHeight: 0,
+            targetWeight: 0,
+            timelineGoal: '',
+            dietary: '',
+            customDietary: '',
+            allergies: [],
+            customAllergies: '',
+            healthConditions: [],
+            medications: '',
+            healthConcerns: ''
+        };
+
+        function startJourney() {
+            const name = document.getElementById('user-name').value.trim();
+            if (!name) {
+                alert('Please enter your name to continue!');
+                return;
+            }
+            
+            userData.name = name;
+            document.getElementById('user-name-display').textContent = name;
+            
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('theme-screen').classList.remove('hidden');
+        }
+
+        // Navigation functions
+        function goBackToWelcome() {
+            document.getElementById('theme-screen').classList.add('hidden');
+            document.getElementById('welcome-screen').classList.remove('hidden');
+        }
+
+        function goBackToGoals() {
+            document.getElementById('profile-screen').classList.add('hidden');
+            document.getElementById('goals-screen').classList.remove('hidden');
+        }
+
+        function goBackToProfile() {
+            document.getElementById('dietary-screen').classList.add('hidden');
+            document.getElementById('profile-screen').classList.remove('hidden');
+        }
+
+        function goBackToDietary() {
+            document.getElementById('allergies-screen').classList.add('hidden');
+            document.getElementById('dietary-screen').classList.remove('hidden');
+        }
+
+        function goBackToAllergyQuestion() {
+            document.getElementById('allergy-details').classList.add('hidden');
+            document.getElementById('allergy-question').classList.remove('hidden');
+        }
+
+        function goBackToAllergies() {
+            document.getElementById('health-screen').classList.add('hidden');
+            document.getElementById('allergies-screen').classList.remove('hidden');
+        }
+
+        function selectTheme(theme) {
+            userData.theme = theme;
+            
+            // Update theme colors
+            const themes = {
+                purple: { primary: 'from-purple-500 to-pink-500', secondary: 'from-667eea to-764ba2' },
+                blue: { primary: 'from-blue-500 to-cyan-500', secondary: 'from-4facfe to-00f2fe' },
+                green: { primary: 'from-green-500 to-emerald-500', secondary: 'from-43e97b to-38f9d7' },
+                orange: { primary: 'from-orange-500 to-red-500', secondary: 'from-fa709a to-fee140' }
+            };
+            
+            // Visual feedback
+            document.querySelectorAll('.theme-card').forEach(card => {
+                card.classList.remove('ring-4', 'ring-white');
+            });
+            event.currentTarget.classList.add('ring-4', 'ring-white');
+            
+            setTimeout(() => {
+                document.getElementById('theme-screen').classList.add('hidden');
+                document.getElementById('goals-screen').classList.remove('hidden');
+            }, 500);
+        }
+
+        function proceedToGoals() {
+            document.getElementById('theme-screen').classList.add('hidden');
+            document.getElementById('goals-screen').classList.remove('hidden');
+        }
+
+        function selectGoal(goal) {
+            userData.goal = goal;
+            
+            // Add visual feedback
+            document.querySelectorAll('.goal-card').forEach(card => {
+                card.classList.remove('ring-4', 'ring-blue-400');
+            });
+            event.currentTarget.classList.add('ring-4', 'ring-blue-400');
+            
+            setTimeout(() => {
+                document.getElementById('goals-screen').classList.add('hidden');
+                document.getElementById('profile-screen').classList.remove('hidden');
+            }, 500);
+        }
+
+        function proceedToDietary() {
+            // Collect profile data
+            userData.age = document.getElementById('user-age').value;
+            userData.gender = document.getElementById('user-gender').value;
+            userData.currentWeight = parseFloat(document.getElementById('current-weight').value);
+            userData.currentHeight = parseFloat(document.getElementById('current-height').value);
+            userData.targetWeight = parseFloat(document.getElementById('target-weight').value);
+            userData.timelineGoal = document.getElementById('timeline-goal').value;
+            
+            // Validate required fields
+            if (!userData.age || !userData.gender || !userData.currentWeight || !userData.currentHeight) {
+                alert('Please fill in all required fields (age, gender, current weight, and height)');
+                return;
+            }
+            
+            document.getElementById('profile-screen').classList.add('hidden');
+            document.getElementById('dietary-screen').classList.remove('hidden');
+        }
+
+        function proceedToAllergies() {
+            // Collect dietary preferences
+            const selectedDietary = document.querySelector('input[name="dietary"]:checked');
+            userData.dietary = selectedDietary ? selectedDietary.value : '';
+            userData.customDietary = document.getElementById('custom-dietary').value;
+            
+            document.getElementById('dietary-screen').classList.add('hidden');
+            document.getElementById('allergies-screen').classList.remove('hidden');
+        }
+
+        function showAllergyOptions() {
+            document.getElementById('allergy-question').classList.add('hidden');
+            document.getElementById('allergy-details').classList.remove('hidden');
+        }
+
+        function skipAllergies() {
+            // Clear any previously selected allergies
+            userData.allergies = [];
+            userData.customAllergies = '';
+            
+            // Skip directly to health conditions
+            document.getElementById('allergies-screen').classList.add('hidden');
+            document.getElementById('health-screen').classList.remove('hidden');
+        }
+
+        function proceedToHealthConditions() {
+            // Collect allergies
+            const selectedAllergies = [];
+            document.querySelectorAll('.allergy-item input:checked').forEach(checkbox => {
+                selectedAllergies.push(checkbox.value);
+            });
+            
+            userData.allergies = selectedAllergies;
+            userData.customAllergies = document.getElementById('custom-allergies').value;
+            
+            document.getElementById('allergies-screen').classList.add('hidden');
+            document.getElementById('health-screen').classList.remove('hidden');
+        }
+
+        function proceedToResults() {
+            // Collect health conditions
+            const selectedHealthConditions = [];
+            document.querySelectorAll('.health-item input:checked').forEach(checkbox => {
+                selectedHealthConditions.push(checkbox.value);
+            });
+            
+            userData.healthConditions = selectedHealthConditions;
+            userData.medications = document.getElementById('medications').value;
+            userData.healthConcerns = document.getElementById('health-concerns').value;
+            
+            document.getElementById('final-name-display').textContent = userData.name;
+            
+            generatePlan();
+            generateBMIAnalysis();
+            
+            document.getElementById('health-screen').classList.add('hidden');
+            document.getElementById('results-screen').classList.remove('hidden');
+        }
+
+        function calculateBMI(weight, height) {
+            // height in cm, convert to meters
+            const heightInMeters = height / 100;
+            return weight / (heightInMeters * heightInMeters);
+        }
+
+        function getBMICategory(bmi) {
+            if (bmi < 18.5) return { category: 'Underweight', color: 'text-blue-600', bg: 'bg-blue-50' };
+            if (bmi < 25) return { category: 'Normal weight', color: 'text-green-600', bg: 'bg-green-50' };
+            if (bmi < 30) return { category: 'Overweight', color: 'text-yellow-600', bg: 'bg-yellow-50' };
+            return { category: 'Obese', color: 'text-red-600', bg: 'bg-red-50' };
+        }
+
+        function getIdealWeight(height, gender, age) {
+            // Using Devine formula with age adjustments
+            const heightInCm = height;
+            let idealWeight;
+            
+            if (gender === 'male') {
+                idealWeight = 50 + 2.3 * ((heightInCm - 152.4) / 2.54);
+            } else {
+                idealWeight = 45.5 + 2.3 * ((heightInCm - 152.4) / 2.54);
+            }
+            
+            // Age adjustment
+            const ageGroup = age.split('-')[0];
+            if (parseInt(ageGroup) >= 65) {
+                idealWeight += 2; // Slightly higher for elderly
+            }
+            
+            return Math.round(idealWeight * 10) / 10;
+        }
+
+        function calculateTimeline(currentWeight, targetWeight, timelineGoal) {
+            const weightDifference = Math.abs(targetWeight - currentWeight);
+            const isWeightLoss = currentWeight > targetWeight;
+            
+            // Safe weight loss/gain rates (kg per week)
+            const safeWeightLossRate = 0.5; // 0.5kg per week
+            const safeWeightGainRate = 0.25; // 0.25kg per week
+            
+            const safeRate = isWeightLoss ? safeWeightLossRate : safeWeightGainRate;
+            const recommendedWeeks = Math.ceil(weightDifference / safeRate);
+            const recommendedMonths = Math.ceil(recommendedWeeks / 4);
+            
+            let timelineAnalysis = {
+                isRealistic: true,
+                recommendedDuration: recommendedMonths,
+                userTimeline: timelineGoal,
+                warning: ''
+            };
+            
+            // Check if user's timeline is realistic
+            const timelineMap = {
+                '1-month': 1,
+                '3-months': 3,
+                '6-months': 6,
+                '1-year': 12,
+                '2-years': 24,
+                'no-rush': 999
+            };
+            
+            const userMonths = timelineMap[timelineGoal] || 999;
+            
+            if (userMonths < recommendedMonths && userMonths !== 999) {
+                timelineAnalysis.isRealistic = false;
+                timelineAnalysis.warning = `Your timeline might be too aggressive. We recommend at least ${recommendedMonths} months for safe ${isWeightLoss ? 'weight loss' : 'weight gain'}.`;
+            }
+            
+            return timelineAnalysis;
+        }
+
+        function generateBMIAnalysis() {
+            if (!userData.currentWeight || !userData.currentHeight) return;
+            
+            const currentBMI = calculateBMI(userData.currentWeight, userData.currentHeight);
+            const bmiCategory = getBMICategory(currentBMI);
+            const idealWeight = getIdealWeight(userData.currentHeight, userData.gender, userData.age);
+            
+            let analysisHTML = `
+                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                    <div class="text-center p-4 ${bmiCategory.bg} rounded-xl">
+                        <div class="text-2xl font-bold ${bmiCategory.color}">${currentBMI.toFixed(1)}</div>
+                        <div class="text-sm text-gray-600">Current BMI</div>
+                        <div class="text-sm font-semibold ${bmiCategory.color}">${bmiCategory.category}</div>
+                    </div>
+                    
+                    <div class="text-center p-4 bg-gray-50 rounded-xl">
+                        <div class="text-2xl font-bold text-gray-800">${userData.currentWeight} kg</div>
+                        <div class="text-sm text-gray-600">Current Weight</div>
+                        <div class="text-sm text-gray-500">${userData.currentHeight} cm tall</div>
+                    </div>
+                    
+                    <div class="text-center p-4 bg-green-50 rounded-xl">
+                        <div class="text-2xl font-bold text-green-600">${idealWeight} kg</div>
+                        <div class="text-sm text-gray-600">Ideal Weight Range</div>
+                        <div class="text-sm text-green-600">For your height & age</div>
+                    </div>
+                </div>
+            `;
+            
+            // Weight goal analysis
+            if (userData.targetWeight) {
+                const weightDifference = userData.targetWeight - userData.currentWeight;
+                const isWeightLoss = weightDifference < 0;
+                const absWeightDiff = Math.abs(weightDifference);
+                
+                analysisHTML += `
+                    <div class="p-4 bg-blue-50 rounded-xl mb-4">
+                        <h4 class="font-bold text-blue-800 mb-2">🎯 Your Weight Goal</h4>
+                        <p class="text-blue-700">
+                            Target: <strong>${userData.targetWeight} kg</strong> 
+                            (${isWeightLoss ? 'Lose' : 'Gain'} ${absWeightDiff.toFixed(1)} kg)
+                        </p>
+                `;
+                
+                if (userData.timelineGoal) {
+                    const timeline = calculateTimeline(userData.currentWeight, userData.targetWeight, userData.timelineGoal);
+                    const timelineText = userData.timelineGoal.replace('-', ' ').replace('months', 'months').replace('month', 'month').replace('year', 'year').replace('years', 'years');
+                    
+                    analysisHTML += `
+                        <p class="text-blue-700 mt-2">
+                            Timeline: <strong>${timelineText}</strong>
+                        </p>
+                    `;
+                    
+                    if (!timeline.isRealistic) {
+                        analysisHTML += `
+                            <div class="mt-3 p-3 bg-yellow-100 border-l-4 border-yellow-400 rounded">
+                                <p class="text-yellow-800 text-sm">⚠️ ${timeline.warning}</p>
+                            </div>
+                        `;
+                    } else {
+                        analysisHTML += `
+                            <div class="mt-3 p-3 bg-green-100 border-l-4 border-green-400 rounded">
+                                <p class="text-green-800 text-sm">✅ Your timeline looks realistic and healthy!</p>
+                            </div>
+                        `;
+                    }
+                }
+                
+                analysisHTML += `</div>`;
+            }
+            
+            // Health status summary
+            const weightStatus = userData.currentWeight < idealWeight - 5 ? 'underweight' : 
+                                userData.currentWeight > idealWeight + 5 ? 'overweight' : 'healthy weight';
+            
+            analysisHTML += `
+                <div class="p-4 bg-purple-50 rounded-xl">
+                    <h4 class="font-bold text-purple-800 mb-2">📋 Health Summary</h4>
+                    <p class="text-purple-700">
+                        Based on your profile (${userData.age} years, ${userData.gender}), you are currently at a <strong>${weightStatus}</strong> status.
+                    </p>
+                    ${userData.healthConditions.length > 0 ? 
+                        `<p class="text-purple-700 mt-2">Health considerations: ${userData.healthConditions.join(', ')}</p>` : ''}
+                </div>
+            `;
+            
+            document.getElementById('bmi-analysis-content').innerHTML = analysisHTML;
+        }
+
+        function generatePlan() {
+            const dietPlans = {
+                'weight-loss': {
+                    vegetarian: {
+                        meals: [
+                            '🌅 Breakfast: Oatmeal with berries and chia seeds',
+                            '🥗 Lunch: Quinoa salad with chickpeas and vegetables',
+                            '🍽️ Dinner: Lentil curry with brown rice',
+                            '🥤 Snacks: Greek yogurt, apple slices, nuts'
+                        ]
+                    },
+                    'non-vegetarian': {
+                        meals: [
+                            '🌅 Breakfast: Scrambled eggs with spinach',
+                            '🥗 Lunch: Grilled chicken salad with mixed greens',
+                            '🍽️ Dinner: Baked salmon with steamed vegetables',
+                            '🥤 Snacks: Greek yogurt, apple slices'
+                        ]
+                    },
+                    eggetarian: {
+                        meals: [
+                            '🌅 Breakfast: Vegetable omelet with whole grain toast',
+                            '🥗 Lunch: Egg salad with quinoa and vegetables',
+                            '🍽️ Dinner: Paneer curry with brown rice',
+                            '🥤 Snacks: Boiled eggs, fruits'
+                        ]
+                    },
+                    vegan: {
+                        meals: [
+                            '🌅 Breakfast: Smoothie bowl with fruits and seeds',
+                            '🥗 Lunch: Buddha bowl with tofu and vegetables',
+                            '🍽️ Dinner: Black bean curry with quinoa',
+                            '🥤 Snacks: Nuts, fruits, plant-based yogurt'
+                        ]
+                    },
+                    tips: [
+                        'Drink 8-10 glasses of water daily',
+                        'Exercise 30 minutes, 5 days a week',
+                        'Avoid processed foods and sugary drinks',
+                        'Get 7-8 hours of sleep nightly'
+                    ]
+                },
+                'weight-gain': {
+                    vegetarian: {
+                        meals: [
+                            '🌅 Breakfast: Protein smoothie with banana and nuts',
+                            '🥗 Lunch: Paneer paratha with yogurt',
+                            '🍽️ Dinner: Dal with rice and ghee',
+                            '🥤 Snacks: Nuts, dried fruits, milk'
+                        ]
+                    },
+                    'non-vegetarian': {
+                        meals: [
+                            '🌅 Breakfast: Protein smoothie with banana and peanut butter',
+                            '🥗 Lunch: Quinoa bowl with chicken and avocado',
+                            '🍽️ Dinner: Lean beef with sweet potato and vegetables',
+                            '🥤 Snacks: Trail mix, protein bars, whole milk'
+                        ]
+                    },
+                    tips: [
+                        'Eat 5-6 smaller meals throughout the day',
+                        'Focus on strength training exercises',
+                        'Include healthy fats in every meal',
+                        'Stay consistent with meal timing'
+                    ]
+                },
+                'healthy-lifestyle': {
+                    vegetarian: {
+                        meals: [
+                            '🌅 Breakfast: Whole grain toast with avocado',
+                            '🥗 Lunch: Mediterranean bowl with hummus',
+                            '🍽️ Dinner: Vegetable stir-fry with quinoa',
+                            '🥤 Snacks: Fresh fruits, nuts, herbal tea'
+                        ]
+                    },
+                    'non-vegetarian': {
+                        meals: [
+                            '🌅 Breakfast: Whole grain toast with avocado and eggs',
+                            '🥗 Lunch: Mediterranean bowl with grilled chicken',
+                            '🍽️ Dinner: Grilled fish with quinoa and roasted vegetables',
+                            '🥤 Snacks: Fresh fruits, nuts, herbal tea'
+                        ]
+                    },
+                    tips: [
+                        'Maintain a balanced diet with all food groups',
+                        'Stay active with regular exercise',
+                        'Practice stress management techniques',
+                        'Regular health check-ups are important'
+                    ]
+                }
+            };
+
+            // Determine goal category
+            let goalCategory = 'healthy-lifestyle';
+            if (userData.goal.includes('weight-loss')) {
+                goalCategory = 'weight-loss';
+            } else if (userData.goal.includes('weight-gain')) {
+                goalCategory = 'weight-gain';
+            } else if (userData.goal === 'weight-loss') {
+                goalCategory = 'weight-loss';
+            } else if (userData.goal === 'weight-gain') {
+                goalCategory = 'weight-gain';
+            }
+
+            // Get dietary preference
+            let dietaryType = userData.dietary || 'non-vegetarian';
+            let selectedPlan = dietPlans[goalCategory];
+            let selectedMeals = selectedPlan[dietaryType] ? selectedPlan[dietaryType].meals : selectedPlan['non-vegetarian'].meals;
+
+            // Modify plan based on allergies and health conditions
+            let modifiedMeals = [...selectedMeals];
+            
+            // Handle allergies
+            if (userData.allergies.includes('nuts') || userData.allergies.includes('peanuts')) {
+                modifiedMeals = modifiedMeals.map(meal => 
+                    meal.replace(/nuts?/gi, 'sunflower seeds').replace('peanut butter', 'sunflower seed butter')
+                );
+            }
+            if (userData.allergies.includes('dairy')) {
+                modifiedMeals = modifiedMeals.map(meal => 
+                    meal.replace('Greek yogurt', 'coconut yogurt').replace(/milk/gi, 'oat milk').replace('paneer', 'tofu')
+                );
+            }
+            if (userData.allergies.includes('gluten')) {
+                modifiedMeals = modifiedMeals.map(meal => 
+                    meal.replace('toast', 'gluten-free toast').replace('paratha', 'rice wrap')
+                );
+            }
+            if (userData.allergies.includes('eggs')) {
+                modifiedMeals = modifiedMeals.map(meal => 
+                    meal.replace(/egg[s]?/gi, 'tofu scramble').replace('omelet', 'chickpea flour pancake')
+                );
+            }
+
+            // Display diet plan
+            const dietContent = document.getElementById('diet-plan-content');
+            dietContent.innerHTML = modifiedMeals.map(meal => 
+                `<div class="mb-3 p-3 bg-gray-50 rounded-lg">${meal}</div>`
+            ).join('');
+
+            // Add special considerations
+            let considerations = [];
+            if (userData.allergies.length > 0 || userData.customAllergies) {
+                considerations.push(`
+                    <div class="mt-4 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded">
+                        <p class="font-semibold text-yellow-800">⚠️ Allergy Considerations:</p>
+                        <p class="text-yellow-700">This plan avoids: ${userData.allergies.join(', ')} ${userData.customAllergies ? '+ ' + userData.customAllergies : ''}</p>
+                    </div>
+                `);
+            }
+
+            if (userData.healthConditions.length > 0) {
+                considerations.push(`
+                    <div class="mt-4 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+                        <p class="font-semibold text-blue-800">🏥 Health Considerations:</p>
+                        <p class="text-blue-700">Plan adjusted for: ${userData.healthConditions.join(', ')}</p>
+                        <p class="text-sm text-blue-600 mt-2">Please consult your healthcare provider before making major dietary changes.</p>
+                    </div>
+                `);
+            }
+
+            dietContent.innerHTML += considerations.join('');
+
+            // Generate health tips based on conditions and profile
+            let healthTips = [...selectedPlan.tips];
+            
+            // Age-specific tips
+            const ageGroup = userData.age ? userData.age.split('-')[0] : '25';
+            if (parseInt(ageGroup) >= 45) {
+                healthTips.push('Focus on calcium and vitamin D for bone health');
+                healthTips.push('Include omega-3 rich foods for heart health');
+            }
+            if (parseInt(ageGroup) >= 65) {
+                healthTips.push('Ensure adequate protein intake (1.2g per kg body weight)');
+                healthTips.push('Stay hydrated - aim for 8-10 glasses of water daily');
+            }
+            
+            // Gender-specific tips
+            if (userData.gender === 'female') {
+                healthTips.push('Include iron-rich foods like spinach and lentils');
+                if (parseInt(ageGroup) < 50) {
+                    healthTips.push('Ensure adequate folate intake');
+                }
+            }
+            
+            // Health condition specific tips
+            if (userData.healthConditions.includes('diabetes')) {
+                healthTips.push('Monitor blood sugar levels regularly');
+                healthTips.push('Choose complex carbohydrates over simple sugars');
+            }
+            if (userData.healthConditions.includes('hypertension')) {
+                healthTips.push('Limit sodium intake to less than 2300mg daily');
+                healthTips.push('Include potassium-rich foods like bananas');
+            }
+            if (userData.healthConditions.includes('hypotension')) {
+                healthTips.push('Increase salt intake moderately (consult doctor first)');
+                healthTips.push('Stay hydrated and eat small, frequent meals');
+                healthTips.push('Avoid sudden position changes to prevent dizziness');
+            }
+            if (userData.healthConditions.includes('thyroid')) {
+                healthTips.push('Maintain consistent meal timing');
+                healthTips.push('Include iodine-rich foods if recommended by doctor');
+            }
+            if (userData.healthConditions.includes('migraine')) {
+                healthTips.push('Identify and avoid trigger foods (chocolate, cheese, caffeine)');
+                healthTips.push('Maintain regular sleep schedule and stay hydrated');
+                healthTips.push('Consider magnesium-rich foods like leafy greens');
+            }
+            if (userData.healthConditions.includes('sinus')) {
+                healthTips.push('Avoid dairy if it increases mucus production');
+                healthTips.push('Include anti-inflammatory foods like turmeric and ginger');
+                healthTips.push('Stay hydrated to thin mucus secretions');
+            }
+            if (userData.healthConditions.includes('acid-reflux')) {
+                healthTips.push('Avoid spicy, acidic, and fatty foods');
+                healthTips.push('Eat smaller meals and avoid eating 3 hours before bed');
+                healthTips.push('Elevate your head while sleeping');
+            }
+            if (userData.healthConditions.includes('insomnia')) {
+                healthTips.push('Avoid caffeine after 2 PM');
+                healthTips.push('Include magnesium-rich foods and herbal teas');
+                healthTips.push('Maintain consistent sleep and meal schedules');
+            }
+            if (userData.healthConditions.includes('anxiety') || userData.healthConditions.includes('depression')) {
+                healthTips.push('Include omega-3 rich foods for brain health');
+                healthTips.push('Limit caffeine and alcohol intake');
+                healthTips.push('Consider foods rich in B vitamins and magnesium');
+            }
+            if (userData.healthConditions.includes('constipation')) {
+                healthTips.push('Increase fiber intake gradually with fruits and vegetables');
+                healthTips.push('Drink plenty of water throughout the day');
+                healthTips.push('Include probiotic foods like yogurt and fermented vegetables');
+            }
+            if (userData.healthConditions.includes('fatigue')) {
+                healthTips.push('Ensure adequate iron and B12 intake');
+                healthTips.push('Eat regular meals to maintain stable blood sugar');
+                healthTips.push('Consider getting blood tests for nutrient deficiencies');
+            }
+            if (userData.healthConditions.includes('skin-issues')) {
+                healthTips.push('Include antioxidant-rich foods like berries and leafy greens');
+                healthTips.push('Stay hydrated and limit processed foods');
+                healthTips.push('Consider zinc-rich foods like pumpkin seeds');
+            }
+            if (userData.healthConditions.includes('hair-loss')) {
+                healthTips.push('Ensure adequate protein, iron, and biotin intake');
+                healthTips.push('Include foods rich in vitamins A, C, and E');
+                healthTips.push('Consider consulting a doctor about nutrient deficiencies');
+            }
+            if (userData.healthConditions.includes('vitamin-deficiency')) {
+                healthTips.push('Get regular blood tests to monitor vitamin levels');
+                healthTips.push('Include a variety of colorful fruits and vegetables');
+                healthTips.push('Consider supplements as recommended by healthcare provider');
+            }
+            if (userData.healthConditions.includes('asthma')) {
+                healthTips.push('Include anti-inflammatory foods like fatty fish and berries');
+                healthTips.push('Avoid known food triggers and allergens');
+                healthTips.push('Maintain a healthy weight to reduce breathing difficulties');
+            }
+            
+            // Timeline and goal specific tips
+            if (userData.targetWeight && userData.timelineGoal) {
+                const timeline = calculateTimeline(userData.currentWeight, userData.targetWeight, userData.timelineGoal);
+                const isWeightLoss = userData.currentWeight > userData.targetWeight;
+                
+                if (isWeightLoss) {
+                    healthTips.push(`Aim for ${timeline.recommendedDuration} months for safe weight loss`);
+                    healthTips.push('Create a moderate calorie deficit of 500-750 calories per day');
+                } else {
+                    healthTips.push(`Plan for ${timeline.recommendedDuration} months for healthy weight gain`);
+                    healthTips.push('Add 300-500 extra calories per day from nutritious sources');
+                }
+                
+                if (userData.timelineGoal !== 'no-rush') {
+                    const timelineText = userData.timelineGoal.replace('-', ' ');
+                    healthTips.push(`Stay consistent with your ${timelineText} goal timeline`);
+                }
+            }
+
+            // Display health tips
+            const tipsContent = document.getElementById('health-tips-content');
+            tipsContent.innerHTML = healthTips.map(tip => 
+                `<div class="mb-3 p-3 bg-gray-50 rounded-lg flex items-start">
+                    <span class="text-green-500 mr-2">✓</span>
+                    <span>${tip}</span>
+                </div>`
+            ).join('');
+        }
+
+        function startOver() {
+            userData = {
+                name: '',
+                goal: '',
+                theme: 'purple',
+                age: '',
+                gender: '',
+                currentWeight: 0,
+                currentHeight: 0,
+                targetWeight: 0,
+                timelineGoal: '',
+                dietary: '',
+                customDietary: '',
+                allergies: [],
+                customAllergies: '',
+                healthConditions: [],
+                medications: '',
+                healthConcerns: ''
+            };
+            
+            // Reset all form inputs
+            document.getElementById('user-name').value = '';
+            document.getElementById('user-age').value = '';
+            document.getElementById('user-gender').value = '';
+            document.getElementById('current-weight').value = '';
+            document.getElementById('current-height').value = '';
+            document.getElementById('target-weight').value = '';
+            document.getElementById('timeline-goal').value = '';
+            document.getElementById('custom-dietary').value = '';
+            document.getElementById('custom-allergies').value = '';
+            document.getElementById('medications').value = '';
+            document.getElementById('health-concerns').value = '';
+            
+            // Reset all checkboxes and radio buttons
+            document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+            
+            document.getElementById('results-screen').classList.add('hidden');
+            document.getElementById('welcome-screen').classList.remove('hidden');
+        }
+
+        function downloadPlan() {
+            const planContent = `
+GlowUp Labs - Personal Wellness Plan for ${userData.name}
+
+GOAL: ${userData.goal.replace('-', ' ').toUpperCase()}
+
+DIET PLAN:
+${document.getElementById('diet-plan-content').textContent}
+
+HEALTH TIPS:
+${document.getElementById('health-tips-content').textContent}
+
+Generated by GlowUp Labs - Your AI Wellness Bestie
+            `;
+            
+            const blob = new Blob([planContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${userData.name}-health-plan.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'987b821591a60b2c',t:'MTc1OTMxNjk3MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
